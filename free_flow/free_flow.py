@@ -1,6 +1,8 @@
 from path import Path
 from search import Search
 
+POSSIBLE_MOVES = [(-1,0),(1,0),(0,-1),(0,1)]
+
 class Game:
 	def __init__(self, inputFile):
 		self.inputFile = inputFile
@@ -76,49 +78,20 @@ class Game:
 		if self.board[x][y] == '_':
 			return False
 		color = self.board[x][y]
-
-		#try catch in case check is out of bounds
-		try:
-			if self.board[x+1][y] == '_' or self.board[x+1][y] == color:
+		for move in POSSIBLE_MOVES:
+			if self.inBound(x+move[0], y+move[1]) and (self.board[x+move[0]][y+move[1]] == '_' or self.board[x+move[0]][y+move[1]] == color):
 				return False
-		except IndexError:
-			pass
-		except Exception as e:	
-			raise e
-
-		try:
-			if self.board[x-1][y] == '_' or self.board[x-1][y] == color:
-				return False
-		except IndexError:
-			pass
-		except Exception as e:	
-			raise e
-
-		try:
-			if self.board[x][y+1] == '_' or self.board[x][y+1] == color:
-				return False
-		except IndexError:
-			pass
-		except Exception as e:	
-			raise e
-			
-		try:
-			if self.board[x][y-1] == '_' or self.board[x][y-1] == color:
-				return False
-		except IndexError:
-			pass
-		except Exception as e:	
-			raise e
-
 		return True
 
-	def getMoves(self, x, y):
-		moves = []
-		if (x<self.boardSize-1):
-			moves = None
+
+	def inBound(self, x,y):
+		return x >= 0 and y >= 0 and x<self.boardSize and y<self.boardSize
+
+
+
 g = Game("input55.txt")
-g.printColors()
 g.printBoard()
-print(g.coordBlocked(4,4))
+
+print(g.anySourceBlocked())
 for c in g.colors:
 	print(c + " " + str(g.generateAllPaths_oneColor(c)))
