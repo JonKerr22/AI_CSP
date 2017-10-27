@@ -14,10 +14,13 @@ class Search:
 	def searchForAllPaths(self):
 
 		completePaths = []
+		incompletePaths = []
 		inProgressPath = Path(self.startPoint, self.endPoint, self.color)
+		incompletePaths.append(inProgressPath) 
 
 		frontier = Queue()
 		visited = [self.startPoint]
+		prev = self.startPoint
 		for move in self.getMoves(self.startPoint[0], self.startPoint[1]):
 			frontier.put(move)
 		while len(frontier.queue) > 0: 
@@ -25,14 +28,34 @@ class Search:
 			if(curr in visited):
 				continue
 			visited.append(curr)
-			inProgressPath.path.append(curr) #BUG: currently saves all moves, 
-											 #should be multiple paths not sure how yet
+			if mDistance(curr[0], prev[0], curr[1], prev[1]) == 1: #in same path as previous
+				inProgressPath.path.append(curr)
+			else:
+				print("new path")
+				#save old path
+				incompletePaths.append(inProgressPath)
+				#if new path right next to start node, then get new path and start that
+				if mDistance(curr[0], self.startPoint[0], curr[1], self.startPoint[1]) == 1:
+					start = Path(self.startPoint, self.endPoint, self.color)
+					p = start.newPathPlusMove(curr[0], curr[1])
+				#go through incompletePaths to find which one this is a part of, append to that
+				else:
+					for path in incompletePaths:
+						x2 = path.path[-1][0]
+						y2 = path.path[-1][1]
+						if mDistance(curr[0], x2, curr[1], y2) == 1:
+							inProgressPath = path.newPathPlusMove(curr[0], curr[1])
+							break
+											
 			if(curr == self.endPoint):
 				#print(str(inProgressPath.path))
 				completePaths.append(inProgressPath)
 			else:
+
 				for move in self.getMoves(curr[0], curr[1]):
 					frontier.put(move)
+
+			prev = curr
 
 		return completePaths
 
@@ -48,3 +71,15 @@ class Search:
 
 	def inBound(self, x,y):
 		return x >= 0 and y >= 0 and x<self.boardSize and y<self.boardSize
+
+
+
+
+
+
+
+
+
+
+def mDistance(x1, x2, y1, y2):
+	return abs(x1 - x2) + abs(x1 - x2)
