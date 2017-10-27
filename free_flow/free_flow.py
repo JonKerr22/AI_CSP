@@ -1,4 +1,5 @@
 from path import Path
+from search import Search
 
 class Game:
 	def __init__(self, inputFile):
@@ -43,7 +44,8 @@ class Game:
 						startCoords = (i,j)
 					else:
 						endCoords = (i,j)
-		paths = ()
+		searcher = Search(self.board, startCoords, endCoords, color)
+		paths = searcher.searchForAllPaths()
 
 	def isPathLegal(self, path):#should include Path object
 		if path.startPoint == (-1,-1) or path.containsZigZag() or self.anySourceBlocked():
