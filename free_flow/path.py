@@ -8,7 +8,7 @@ class Path:
 			self.startPoint = startPoint
 			self.endPoint = endPoint
 			self.color = color
-		self.path = (startPoint) #should be a list of tuples
+		self.path = [(startPoint)] 
 
 	def containsZigZag(self):
 		for coord in self.path: #zigzag check loop
@@ -22,4 +22,7 @@ class Path:
 				return True
 		return False
 
-	
+	def newPathPlusMove(self, x, y):
+		p = Path(self.startPoint, self.endPoint, self.color)
+		p.path = self.path.append((x,y))
+		return p

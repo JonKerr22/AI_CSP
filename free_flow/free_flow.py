@@ -48,6 +48,7 @@ class Game:
 						endCoords = (i,j)
 		searcher = Search(self.board, startCoords, endCoords, color)
 		paths = searcher.searchForAllPaths()
+		return paths
 
 	def isPathLegal(self, path):#should include Path object
 		if path.startPoint == (-1,-1) or path.containsZigZag() or self.anySourceBlocked():
@@ -93,5 +94,6 @@ g = Game("input55.txt")
 g.printBoard()
 
 print(g.anySourceBlocked())
-for c in g.colors:
-	print(c + " " + str(g.generateAllPaths_oneColor(c)))
+print('B' + " " + str(g.generateAllPaths_oneColor('B')))
+#for c in g.colors:
+#	print(c + " " + str(g.generateAllPaths_oneColor(c)))
