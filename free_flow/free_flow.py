@@ -91,11 +91,12 @@ class Game:
 
 
 
-g = Game("input77.txt")
+g = Game("input55.txt")
 g.printBoard()
 
 #print(g.anySourceBlocked())
 #print('B' + " " + str(g.generateAllPaths_oneColor('B')))
 for c in g.colors:
-	path = g.generateAllPaths_oneColor(c)[0]
-	print(c + " " + str(path.path))
+	paths = g.generateAllPaths_oneColor(c)
+	for path in paths:
+		print(c + " " + str(path.path))

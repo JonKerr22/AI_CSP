@@ -1,6 +1,6 @@
 from path import Path
 from Queue import Queue
-
+from collections import defaultdict
 POSSIBLE_MOVES = [(-1,0),(1,0),(0,-1),(0,1)]
 
 class Search:
@@ -15,6 +15,7 @@ class Search:
 
 		completePaths = []
 		incompletePaths = []
+		existingPaths = defaultdict(bool)
 		inProgressPath = Path(self.startPoint, self.endPoint, self.color)
 		incompletePaths.append(inProgressPath) 
 
@@ -25,12 +26,13 @@ class Search:
 			frontier.put(move)
 		while len(frontier.queue) > 0: 
 			curr = frontier.get()
-			if(curr in visited):
-				continue
+#			if(curr in visited):
+#				continue
 			visited.append(curr)
 			#print(mDistance(curr[0], prev[0], curr[1], prev[1]))
 			if mDistance(curr[0], prev[0], curr[1], prev[1]) == 1: #in same path as previous
-				inProgressPath.path.append(curr)
+				if curr not in inProgressPath.path:
+					inProgressPath.path.append(curr)
 			else:
 				#print("previous:"+ str(prev) +"at: " + str(curr)+ ", old path: "+ str(inProgressPath.path))
 				#save old path
@@ -45,25 +47,26 @@ class Search:
 				else:
 					#print("continued path from these: " + str(incompletePaths))
 					for path in incompletePaths:
-						if path is None:
-							continue
-						x2 = path.path[-1][0]
-						y2 = path.path[-1][1]
+						x2,y2 = path.path[-1]
 						if mDistance(curr[0], x2, curr[1], y2) == 1:
 							inProgressPath = path.newPathPlusMove(curr[0], curr[1])
 							break
+			
 											
 			if(curr == self.endPoint):
 				#print(str(inProgressPath.path))
 				completePaths.append(inProgressPath)
 			else:
+				if existingPaths[tuple(inProgressPath.path)]:
+					continue
+				print(tuple(inProgressPath.path),"\n")
+				existingPaths[tuple(inProgressPath.path)] = True
 				for move in self.getMoves(curr[0], curr[1]):
 					frontier.put(move)
 
 			if inProgressPath.path is None:
 				print("ring ring")
 			prev = curr
-
 		return completePaths
 
 
