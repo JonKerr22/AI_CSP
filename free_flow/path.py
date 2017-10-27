@@ -21,3 +21,5 @@ class Path:
 			elif (coord[0] -1, coord[1]) in self.path and (coord[0], coord[1]-1) in self.path and (coord[0], coord[1]+1) in self.path:
 				return True
 		return False
+
+	

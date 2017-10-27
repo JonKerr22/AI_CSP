@@ -1,0 +1,10 @@
+#compiled files
+free_flow/*.pyc
+breakthrough/*.pyc
+
+#default maze files
+free_flow/input55.txt
+free_flow/input77.txt
+free_flow/input88.txt
+free_flow/input99.txt
+breakthrough/startBoard.txt

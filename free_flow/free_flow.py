@@ -81,39 +81,44 @@ class Game:
 		try:
 			if self.board[x+1][y] == '_' or self.board[x+1][y] == color:
 				return False
-		except Exception as e:
-			if e == IndexError:
-				pass
-			else:
-				raise e
+		except IndexError:
+			pass
+		except Exception as e:	
+			raise e
+
 		try:
 			if self.board[x-1][y] == '_' or self.board[x-1][y] == color:
 				return False
-		except Exception as e:
-			if e == IndexError:
-				pass
-			else:
-				raise e
-		try:
-			if self.board[x1][y+1] == '_' or self.board[x][y+1] == color:
-				return False
-		except Exception as e:
-			if e == IndexError:
-				pass
-			else:
-				raise e
-		try:
-			if self.board[x1][y-1] == '_' or self.board[x][y-1] == color:
-				return False
-		except Exception as e:
-			if e == IndexError:
-				pass
-			else:
-				raise e
+		except IndexError:
+			pass
+		except Exception as e:	
+			raise e
 
+		try:
+			if self.board[x][y+1] == '_' or self.board[x][y+1] == color:
+				return False
+		except IndexError:
+			pass
+		except Exception as e:	
+			raise e
+			
+		try:
+			if self.board[x][y-1] == '_' or self.board[x][y-1] == color:
+				return False
+		except IndexError:
+			pass
+		except Exception as e:	
+			raise e
 
+		return True
+
+	def getMoves(self, x, y):
+		moves = []
+		if (x<self.boardSize-1):
+			moves = None
 g = Game("input55.txt")
 g.printColors()
 g.printBoard()
+print(g.coordBlocked(4,4))
 for c in g.colors:
 	print(c + " " + str(g.generateAllPaths_oneColor(c)))
