@@ -28,19 +28,25 @@ class Search:
 			if(curr in visited):
 				continue
 			visited.append(curr)
+			#print(mDistance(curr[0], prev[0], curr[1], prev[1]))
 			if mDistance(curr[0], prev[0], curr[1], prev[1]) == 1: #in same path as previous
 				inProgressPath.path.append(curr)
 			else:
-				print("new path")
+				print("previous:"+ str(prev) +"at: " + str(curr)+ ", old path: "+ str(inProgressPath.path))
 				#save old path
 				incompletePaths.append(inProgressPath)
 				#if new path right next to start node, then get new path and start that
-				if mDistance(curr[0], self.startPoint[0], curr[1], self.startPoint[1]) == 1:
+				if mDistance(curr[0], self.startPoint[0], curr[1], self.startPoint[1]) == 1:					
 					start = Path(self.startPoint, self.endPoint, self.color)
-					p = start.newPathPlusMove(curr[0], curr[1])
+					print("new from start: "+ str(start.path))
+					inProgressPath = start.newPathPlusMove(curr[0], curr[1])
+					print("new path: " + str(inProgressPath.path))
 				#go through incompletePaths to find which one this is a part of, append to that
 				else:
+					print("continued path from these: " + str(incompletePaths))
 					for path in incompletePaths:
+						if path is None:
+							continue
 						x2 = path.path[-1][0]
 						y2 = path.path[-1][1]
 						if mDistance(curr[0], x2, curr[1], y2) == 1:
@@ -51,10 +57,11 @@ class Search:
 				#print(str(inProgressPath.path))
 				completePaths.append(inProgressPath)
 			else:
-
 				for move in self.getMoves(curr[0], curr[1]):
 					frontier.put(move)
 
+			if inProgressPath.path is None:
+				print("ring ring")
 			prev = curr
 
 		return completePaths
@@ -82,4 +89,4 @@ class Search:
 
 
 def mDistance(x1, x2, y1, y2):
-	return abs(x1 - x2) + abs(x1 - x2)
+	return abs(x1 - x2) + abs(y1 - y2)

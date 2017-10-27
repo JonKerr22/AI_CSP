@@ -29,3 +29,9 @@ class Path:
 		p = Path(self.startPoint, self.endPoint, self.color)
 		p.path = self.path.append((x,y))
 		return p
+	
+	def deepCopy(self, path):
+		self.startPoint = path.startPoint
+		self.endPoint = path.endPoint
+		self.color = path.color
+		self.path = path.path
