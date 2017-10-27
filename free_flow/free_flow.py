@@ -1,3 +1,5 @@
+from path import Path
+
 class Game:
 	def __init__(self, inputFile):
 		self.inputFile = inputFile
@@ -14,6 +16,7 @@ class Game:
 				if(c.isupper() and c not in colors):
 					colors.append(c)
 		self.colors = colors
+
 
 	def dumbSolve(self):
 		i=0
@@ -40,9 +43,13 @@ class Game:
 						startCoords = (i,j)
 					else:
 						endCoords = (i,j)
-		return (startCoords, endCoords)
-	def isPathLegal(self):
-		i=0
+		paths = ()
+
+	def isPathLegal(self, path):#should include Path object
+		if path.startPoint == (-1,-1) or path.containsZigZag() or self.anySourceBlocked():
+			return False
+		return True
+
 	def findSolution(self):
 		#search all paths that all the colors can have, find the ones that don't overlap\
 		i=0
@@ -56,6 +63,52 @@ class Game:
 				if(char != '\n'):
 					row += char
 			print row
+	def anySourceBlocked(self):
+		for i in range(self.boardSize):
+			for j in range(self.boardSize):
+				if self.board[i][j] != '_' and self.coordBlocked(i,j):
+					return True
+		return False
+
+	def coordBlocked(self, x,y) :
+		if self.board[x][y] == '_':
+			return False
+		color = self.board[x][y]
+
+		#try catch in case check is out of bounds
+		try:
+			if self.board[x+1][y] == '_' or self.board[x+1][y] == color:
+				return False
+		except Exception as e:
+			if e == IndexError:
+				pass
+			else:
+				raise e
+		try:
+			if self.board[x-1][y] == '_' or self.board[x-1][y] == color:
+				return False
+		except Exception as e:
+			if e == IndexError:
+				pass
+			else:
+				raise e
+		try:
+			if self.board[x1][y+1] == '_' or self.board[x][y+1] == color:
+				return False
+		except Exception as e:
+			if e == IndexError:
+				pass
+			else:
+				raise e
+		try:
+			if self.board[x1][y-1] == '_' or self.board[x][y-1] == color:
+				return False
+		except Exception as e:
+			if e == IndexError:
+				pass
+			else:
+				raise e
+
 
 g = Game("input55.txt")
 g.printColors()
