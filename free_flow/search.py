@@ -32,18 +32,18 @@ class Search:
 			if mDistance(curr[0], prev[0], curr[1], prev[1]) == 1: #in same path as previous
 				inProgressPath.path.append(curr)
 			else:
-				print("previous:"+ str(prev) +"at: " + str(curr)+ ", old path: "+ str(inProgressPath.path))
+				#print("previous:"+ str(prev) +"at: " + str(curr)+ ", old path: "+ str(inProgressPath.path))
 				#save old path
 				incompletePaths.append(inProgressPath)
 				#if new path right next to start node, then get new path and start that
 				if mDistance(curr[0], self.startPoint[0], curr[1], self.startPoint[1]) == 1:					
 					start = Path(self.startPoint, self.endPoint, self.color)
-					print("new from start: "+ str(start.path))
+					#print("new from start: "+ str(start.path))
 					inProgressPath = start.newPathPlusMove(curr[0], curr[1])
-					print("new path: " + str(inProgressPath.path))
+					#print("new path: " + str(inProgressPath))
 				#go through incompletePaths to find which one this is a part of, append to that
 				else:
-					print("continued path from these: " + str(incompletePaths))
+					#print("continued path from these: " + str(incompletePaths))
 					for path in incompletePaths:
 						if path is None:
 							continue

@@ -27,7 +27,7 @@ class Path:
 
 	def newPathPlusMove(self, x, y):
 		p = Path(self.startPoint, self.endPoint, self.color)
-		p.path = self.path.append((x,y))
+		p.path = self.path + [(x,y)]
 		return p
 	
 	def deepCopy(self, path):

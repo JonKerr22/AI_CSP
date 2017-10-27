@@ -91,7 +91,7 @@ class Game:
 
 
 
-g = Game("input55.txt")
+g = Game("input99.txt")
 g.printBoard()
 
 #print(g.anySourceBlocked())
