@@ -47,9 +47,9 @@ class Game:
 					else:
 						endCoords = (i,j)
 		searcher = Search(self.board, startCoords, endCoords, color)
-		paths = searcher.searchForAllPaths()#BUG: bug description in search.py
+		paths = searcher.searchForAllPaths()#BUG: only finding 1 path
 		legalPaths = filter(lambda path : self.isPathLegal(path), paths)
-		return paths
+		return legalPaths
 
 	def isPathLegal(self, path):#should include Path object
 		if path.startPoint == (-1,-1) or path.containsZigZag() or self.anySourceBlocked():
@@ -91,7 +91,7 @@ class Game:
 
 
 
-g = Game("input99.txt")
+g = Game("input77.txt")
 g.printBoard()
 
 #print(g.anySourceBlocked())
