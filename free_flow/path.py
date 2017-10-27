@@ -10,6 +10,9 @@ class Path:
 			self.color = color
 		self.path = [(startPoint)] 
 
+	def __str__(self):
+		return self.path
+
 	def containsZigZag(self):
 		for coord in self.path: #zigzag check loop
 			if (coord[0] +1, coord[1]) in self.path and (coord[0] -1, coord[1]) in self.path and (coord[0], coord[1]+1) in self.path:

@@ -47,7 +47,8 @@ class Game:
 					else:
 						endCoords = (i,j)
 		searcher = Search(self.board, startCoords, endCoords, color)
-		paths = searcher.searchForAllPaths()
+		paths = searcher.searchForAllPaths()#BUG: bug description in search.py
+		legalPaths = filter(lambda path : self.isPathLegal(path), paths)
 		return paths
 
 	def isPathLegal(self, path):#should include Path object
@@ -94,6 +95,7 @@ g = Game("input55.txt")
 g.printBoard()
 
 print(g.anySourceBlocked())
-print('B' + " " + str(g.generateAllPaths_oneColor('B')))
-#for c in g.colors:
-#	print(c + " " + str(g.generateAllPaths_oneColor(c)))
+#print('B' + " " + str(g.generateAllPaths_oneColor('B')))
+for c in g.colors:
+	path = g.generateAllPaths_oneColor(c)[0]
+	print(c + " " + str(path.path))

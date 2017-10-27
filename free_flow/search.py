@@ -28,8 +28,8 @@ class Search:
 			inProgressPath.path.append(curr) #BUG: currently saves all moves, 
 											 #should be multiple paths not sure how yet
 			if(curr == self.endPoint):
-				print(str(inProgressPath.path))
-				completePaths.append(inProgressPath.path)
+				#print(str(inProgressPath.path))
+				completePaths.append(inProgressPath)
 			else:
 				for move in self.getMoves(curr[0], curr[1]):
 					frontier.put(move)
