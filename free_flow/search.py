@@ -17,49 +17,56 @@ class Search:
 		incompletePaths = []
 		existingPaths = defaultdict(bool)
 		inProgressPath = Path(self.startPoint, self.endPoint, self.color)
-		incompletePaths.append(inProgressPath) 
+		base = inProgressPath.deepCopy()
+		incompletePaths.append(base) 
 
 		frontier = Queue()
-		visited = [self.startPoint]
+#visited = [self.startPoint]
 		prev = self.startPoint
 		for move in self.getMoves(self.startPoint[0], self.startPoint[1]):
 			frontier.put(move)
-		while len(frontier.queue) > 0: 
+		while len(frontier.queue) > 0:
 			curr = frontier.get()
-#			if(curr in visited):
-#				continue
-			visited.append(curr)
-			#print(mDistance(curr[0], prev[0], curr[1], prev[1]))
-			if mDistance(curr[0], prev[0], curr[1], prev[1]) == 1: #in same path as previous
-				if curr not in inProgressPath.path:
-					inProgressPath.path.append(curr)
-			else:
-				#print("previous:"+ str(prev) +"at: " + str(curr)+ ", old path: "+ str(inProgressPath.path))
-				#save old path
-				incompletePaths.append(inProgressPath)
-				#if new path right next to start node, then get new path and start that
-				if mDistance(curr[0], self.startPoint[0], curr[1], self.startPoint[1]) == 1:					
-					start = Path(self.startPoint, self.endPoint, self.color)
-					#print("new from start: "+ str(start.path))
-					inProgressPath = start.newPathPlusMove(curr[0], curr[1])
-					#print("new path: " + str(inProgressPath))
-				#go through incompletePaths to find which one this is a part of, append to that
-				else:
-					#print("continued path from these: " + str(incompletePaths))
-					for path in incompletePaths:
-						x2,y2 = path.path[-1]
-						if mDistance(curr[0], x2, curr[1], y2) == 1:
-							inProgressPath = path.newPathPlusMove(curr[0], curr[1])
-							break
+			print("at: "+str(curr))
+			if(curr in inProgressPath.path):#don't have paths backtrace on self
+				continue
 			
+			if mDistance(curr[0], prev[0], curr[1], prev[1]) == 1: #in same path as previous
+				inProgressPath = inProgressPath.newPathPlusMove(curr[0], curr[1])
+				#print("paths to check:")
+				#for path in incompletePaths:
+				#	print(path.path)
+				print("same path: " + str(inProgressPath.path))
+			else:
+				#save old path
+				temp = inProgressPath.deepCopy()
+				incompletePaths.append(temp)
+				#print("paths to check:")
+				#for path in incompletePaths:
+				#	print(path.path)
+				#go through incompletePaths to find which one this is a part of, append to that
+				for path in incompletePaths:
+					print("checking this path: "+str(path.path))
+					x2,y2 = path.path[-1]
+					#print("at: " + str(curr)+ "looking at: " + str((x2,y2)))
+					#print(mDistance(curr[0], x2, curr[1], y2))
+					if mDistance(curr[0], x2, curr[1], y2) == 1:
+						print("found new!")
+						inProgressPath = path.newPathPlusMove(curr[0], curr[1])
+				#print("new path: " + str(inProgressPath.path))
 											
 			if(curr == self.endPoint):
-				#print(str(inProgressPath.path))
+				print("found complete: "+ str(inProgressPath.path))
+				prev = (-2, -2) #set to outside board mdistance of 1
 				completePaths.append(inProgressPath)
+				if(len(incompletePaths) > 0):
+					inProgressPath = incompletePaths[-1]
+				continue
 			else:
+				print(tuple(inProgressPath.path),"\n")
 				if existingPaths[tuple(inProgressPath.path)]:
 					continue
-				print(tuple(inProgressPath.path),"\n")
+				
 				existingPaths[tuple(inProgressPath.path)] = True
 				for move in self.getMoves(curr[0], curr[1]):
 					frontier.put(move)

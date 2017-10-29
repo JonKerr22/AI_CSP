@@ -13,6 +13,9 @@ class Path:
 	def __str__(self):
 		return self.path
 
+	def setPath(self, path):
+		self.path = path
+
 	def containsZigZag(self):
 		for coord in self.path: #zigzag check loop
 			if (coord[0] +1, coord[1]) in self.path and (coord[0] -1, coord[1]) in self.path and (coord[0], coord[1]+1) in self.path:
@@ -31,8 +34,7 @@ class Path:
 			p.path = self.path + [(x,y)]
 		return p
 	
-	def deepCopy(self, path):
-		self.startPoint = path.startPoint
-		self.endPoint = path.endPoint
-		self.color = path.color
-		self.path = path.path
+	def deepCopy(self):
+		p = Path(self.startPoint, self.endPoint, self.color)  
+		p.setPath(self.path)
+		return p 

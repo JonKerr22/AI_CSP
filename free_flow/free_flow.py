@@ -52,6 +52,7 @@ class Game:
 		return legalPaths
 
 	def isPathLegal(self, path):#should include Path object
+		return True #temp, for debugging
 		if path.startPoint == (-1,-1) or path.containsZigZag() or self.anySourceBlocked():
 			return False
 		return True
@@ -95,8 +96,8 @@ g = Game("input55.txt")
 g.printBoard()
 
 #print(g.anySourceBlocked())
-#print('B' + " " + str(g.generateAllPaths_oneColor('B')))
-for c in g.colors:
-	paths = g.generateAllPaths_oneColor(c)
-	for path in paths:
-		print(c + " " + str(path.path))
+print('R' + " " + str(g.generateAllPaths_oneColor('R')))
+#for c in g.colors:
+#	paths = g.generateAllPaths_oneColor(c)
+#	for path in paths:
+#		print(str(c) + str(path.path))
