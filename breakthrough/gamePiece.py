@@ -25,7 +25,7 @@ class Piece:
                 return True
         else:   # diagonals
             new_spot = board[new_x][new_y]
-            if new_spot is not None:    #other piece in that spot
+            if new_spot is not None:    # other piece in that spot
                 if new_spot.color == self.color:   # can't kill your own player
                     return False
                 else:   # kill move
