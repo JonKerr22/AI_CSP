@@ -46,7 +46,8 @@ class Board:
                     new_board.alive_pieces.append(new_piece)
                 else:
                     board_cols.append(None)
-            new_board.append(board_cols)
+            new_board.board.append(board_cols)
+        return new_board
 
     def print_board(self):
         """prints board state"""

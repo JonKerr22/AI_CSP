@@ -1,3 +1,7 @@
+# different pieces/players
+WHITE = 0
+BLACK = 1
+
 class Piece:
 
     def __init__(self):
@@ -22,7 +26,7 @@ class Piece:
             return False
         elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:    # off board
             return False
-        elif abs(self.y - new_y) != 1:   # invalid movements
+        elif (turn == WHITE and self.y - new_y == 1) or (turn == BLACK and self.y - new_y == -1):   # invalid movements
             return False
         elif abs(self.x - new_x) > 1:
             return False
@@ -33,6 +37,8 @@ class Piece:
             else:
                 board[self.y][self.x] = None
                 board[new_y][new_x] = self
+                self.x = new_x
+                self.y = new_y
                 return True
         else:   # diagonals
             new_spot = board[new_y][new_x]
@@ -43,8 +49,12 @@ class Piece:
                     alive_pieces.remove(new_spot)
                     board[self.y][self.x] = None
                     board[new_y][new_x] = self
+                    self.x = new_x
+                    self.y = new_y
                     return True
             else:
                 board[self.y][self.x] = None
                 board[new_y][new_x] = self
+                self.x = new_x
+                self.y = new_y
                 return True

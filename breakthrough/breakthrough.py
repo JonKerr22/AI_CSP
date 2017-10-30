@@ -1,5 +1,6 @@
 import board
 import gamePiece
+import minimax
 
 # different pieces/players
 WHITE = 0
@@ -29,8 +30,10 @@ def game_play():
 
     while 1:  # game loop
         # call heuristic functions
+        score, piece_to_move, piece_x, piece_y = minimax.minimax(game_board, turn, False, 3, True, 0)
+        piece_to_move.move(piece_to_move, piece_y, piece_x, game_board.board, game_board.alive_pieces, turn)
+        game_board.print_board()
 
-        piece_to_move = board[0][0]
         # breaks from loop when game is over
         if game_over(piece_to_move):
             break
@@ -42,9 +45,4 @@ def game_play():
             turn = WHITE
 
 if __name__ == '__main__':
-    currBoard = board.Board()
-    currBoard.set_board()
-    #currBoard.print_board()
-    success = currBoard.board[6][0].move(5, 0, currBoard.board, currBoard.alive_pieces, BLACK)
-    currBoard.print_board()
-    print(success)
+    game_play()
