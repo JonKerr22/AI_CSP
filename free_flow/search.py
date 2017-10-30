@@ -54,16 +54,20 @@ class Search:
 				#go through incompletePaths to find which one this is a part of, append to that
 				for path in incompletePaths:
 					print("checking this path: "+str(path.path))
-					x2,y2 = path.path[-1]
-					#print("at: " + str(curr)+ "looking at: " + str((x2,y2)) + "distance: " + str(mDistance(curr[0], x2, curr[1], y2)))
-					#print(mDistance(curr[0], x2, curr[1], y2))
-					if mDistance(curr[0], x2, curr[1], y2) == 1 and len(path.path)>=minLength:
-				#		print("found new!")
-						path = path.newPathPlusMove(curr[0], curr[1])
-						inProgressPath = path.deepCopy()
-						if curr == self.endPoint :
-							completePaths.append(inProgressPath.deepCopy()) 
-							print("found complete: "+ str(inProgressPath.path))
+					for i in range(len(path.path), 0, -1):
+						idx = i-1
+						x2,y2 = path.path[idx]
+						#print("at: " + str(curr)+ "looking at: " + str((x2,y2)) + "distance: " + str(mDistance(curr[0], x2, curr[1], y2)))
+						#print(mDistance(curr[0], x2, curr[1], y2))
+						if mDistance(curr[0], x2, curr[1], y2) == 1 and len(path.path)>=minLength:
+					#		print("found new!")
+							newPath = path.deepCopy()
+							newPath.setPath(path.path[:i])
+							path = path.newPathPlusMove(curr[0], curr[1])
+							inProgressPath = path.deepCopy()
+							if curr == self.endPoint :
+								completePaths.append(inProgressPath.deepCopy()) 
+								print("found complete: "+ str(inProgressPath.path))
 
 						
 				print("switched to path: " + str(inProgressPath.path))
@@ -73,6 +77,7 @@ class Search:
 				prev = (-2, -2) #set to outside board mdistance of 1
 				#completePaths.append(inProgressPath.deepCopy())
 				if(len(incompletePaths) > 0):
+					print("jumping to new path")
 					inProgressPath = incompletePaths[-1]
 				continue
 			else:

@@ -8,3 +8,6 @@ free_flow/input77.txt
 free_flow/input88.txt
 free_flow/input99.txt
 breakthrough/startBoard.txt
+
+#test file
+free_flow/test.py
