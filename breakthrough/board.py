@@ -1,9 +1,3 @@
-#offensive heuristic 2: try and find moves that max the number of pieces you attack
-	#defense 1 just defends itself doesn't attack your pieces, so offense 2 beats it
-
-#defensive heuristic 2: try to bait offensive 1 to attack for no gain, in order to open up
-	#more paths to opponent home row, not yet sure exactly how to choose where to bait opponent
-
 import gamePiece
 
 # different pieces/players
@@ -11,12 +5,12 @@ WHITE = 0
 BLACK = 1
 
 class Board:
-
     def __init__(self):
         self.board = []  # game board
         self.alive_pieces = []  # keeps track of alive pieces in current game
 
     def set_board(self):
+        """sets board up in beginning of the game"""
         for i in range(0, 8):
             board_cols = []
             for j in range(0, 8):
@@ -38,18 +32,34 @@ class Board:
                     board_cols.append(None)
             self.board.append(board_cols)
 
+    def copy_board(self, new_board):
+        """copies current state of the board to a new board"""
+        for i in range(0, 8):
+            board_cols = []
+            for j in range(0, 8):
+                if self.board[i][j] is not None:
+                    new_piece = gamePiece.Piece()
+                    new_piece.color = self.board[i][j].color
+                    new_piece.x = self.board[i][j].x
+                    new_piece.y = self.board[i][j].y
+                    board_cols.append(new_piece)
+                    new_board.alive_pieces.append(new_piece)
+                else:
+                    board_cols.append(None)
+            new_board.append(board_cols)
+
     def print_board(self):
-        print(len(self.board[0]))
-        currLine = "|"
+        """prints board state"""
+        curr_line = "|"
         for i in range(0, 8):
             for j in range(0, 8):
                 if self.board[i][j] is None:
-                    currLine += ' |'
+                    curr_line += ' |'
                 elif self.board[i][j].color == WHITE:
-                    currLine += 'W|'
+                    curr_line += 'W|'
                 elif self.board[i][j].color == BLACK:
-                    currLine += 'B|'
+                    curr_line += 'B|'
                 else:
-                    currLine += ' '
-            print(currLine)
-            currLine = "|"
+                    curr_line += ' '
+            print(curr_line)
+            curr_line = "|"

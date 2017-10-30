@@ -5,9 +5,20 @@ class Piece:
         self.x = None
         self.y = None
 
-    # moves piece to different square on board
-    def move(self, new_x, new_y, board, alive_pieces):
-        if new_x == self.x and new_y == self.y:   # same spot
+    def move(self, new_x, new_y, board, alive_pieces, turn):
+        """
+        :param new_x: new x coordinate on board to move to
+        :param new_y: new y coordinate on board to move to
+        :param board: current state of the game board
+        :param alive_pieces: list of alive pieces on the board
+        :param turn: which players turn it is
+        :return: true or false based on whether the move is legal
+
+        Moves a piece from one square to another.
+        """
+        if turn != self.color:
+            return False
+        elif new_x == self.x and new_y == self.y:   # same spot
             return False
         elif new_x > 7 or new_x < 0 or new_y > 7 or new_y < 0:    # off board
             return False
