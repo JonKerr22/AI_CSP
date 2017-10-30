@@ -21,7 +21,6 @@ class Search:
 		incompletePaths.append(base) 
 
 		frontier = Queue()
-#visited = [self.startPoint]
 		prev = self.startPoint
 		for move in self.getMoves(self.startPoint[0], self.startPoint[1]):
 			frontier.put(move)
@@ -42,12 +41,12 @@ class Search:
 		
 				#go through incompletePaths to find which one this is a part of, append to that
 				for path in incompletePaths:
-					print("checking this path: "+str(path.path))
+				#	print("checking this path: "+str(path.path))
 					x2,y2 = path.path[-1]
-					print("at: " + str(curr)+ "looking at: " + str((x2,y2)))
+				#	print("at: " + str(curr)+ "looking at: " + str((x2,y2)))
 					#print(mDistance(curr[0], x2, curr[1], y2))
 					if mDistance(curr[0], x2, curr[1], y2) == 1:
-						print("found new!")
+				#		print("found new!")
 						inProgressPath = path.newPathPlusMove(curr[0], curr[1])
 						
 				print("new path: " + str(inProgressPath.path))
@@ -60,7 +59,7 @@ class Search:
 					inProgressPath = incompletePaths[-1]
 				continue
 			else:
-				#print(tuple(inProgressPath.path),"\n")
+				print(tuple(inProgressPath.path),"\n")
 				if existingPaths[tuple(inProgressPath.path)]:
 					continue
 				
