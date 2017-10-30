@@ -46,3 +46,21 @@ def defensive1(player, board):
     num_pieces = number_of_pieces(player, board.alive_pieces)   # find number of your pieces
 
     return 2 * num_pieces + random()
+
+def offensive2(player, board):
+	"""
+	Goal is to beat defensive1, which seeks to maximize 
+	the number of it's own peices. So to beat that, goal
+	is to maximize number of peices you can attack, since defensive 
+	one doesn't avoid moving into attack, just avoids losing
+	"""
+	
+def defensive2(player, board):
+	"""
+	Goal is to beat offensive1, which seeks to lower
+	the total number of peices your opponenet has. To
+	beat that try and minimize the number of peices that
+	other player can attack with, basically avoid being diagonal 
+	from an opponent peice, but try and get your pieces directly 
+	in front of opponent
+	"""
