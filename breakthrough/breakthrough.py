@@ -44,4 +44,7 @@ def game_play():
 if __name__ == '__main__':
     currBoard = board.Board()
     currBoard.set_board()
+    #currBoard.print_board()
+    success = currBoard.board[6][0].move(5, 0, currBoard.board, currBoard.alive_pieces, BLACK)
     currBoard.print_board()
+    print(success)
