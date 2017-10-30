@@ -24,7 +24,16 @@ class Search:
 		prev = self.startPoint
 		for move in self.getMoves(self.startPoint[0], self.startPoint[1]):
 			frontier.put(move)
+		minLength = 1
+		frontierLoops = 0
 		while len(frontier.queue) > 0:
+			#min path exists to prevent creation of repeat paths
+			frontierLoops+=1
+			if(frontierLoops==len(self.getMoves(self.startPoint[0], self.startPoint[1]))+1):
+				minLength = 2
+			if(frontierLoops == 4*len(self.getMoves(self.startPoint[0], self.startPoint[1]))+1):
+				minLength = 3
+
 			curr = frontier.get()
 			if(curr in inProgressPath.path):#don't have paths backtrace on self
 				continue
@@ -34,6 +43,9 @@ class Search:
 				inProgressPath = inProgressPath.newPathPlusMove(curr[0], curr[1])
 				
 				print("same path: " + str(inProgressPath.path))
+				if curr == self.endPoint :
+					completePaths.append(inProgressPath.deepCopy())
+					print("found complete: "+ str(inProgressPath.path))
 			else:
 				#save old path
 				temp = inProgressPath.deepCopy()
@@ -41,20 +53,25 @@ class Search:
 		
 				#go through incompletePaths to find which one this is a part of, append to that
 				for path in incompletePaths:
-				#	print("checking this path: "+str(path.path))
+					print("checking this path: "+str(path.path))
 					x2,y2 = path.path[-1]
-				#	print("at: " + str(curr)+ "looking at: " + str((x2,y2)))
+					#print("at: " + str(curr)+ "looking at: " + str((x2,y2)) + "distance: " + str(mDistance(curr[0], x2, curr[1], y2)))
 					#print(mDistance(curr[0], x2, curr[1], y2))
-					if mDistance(curr[0], x2, curr[1], y2) == 1:
+					if mDistance(curr[0], x2, curr[1], y2) == 1 and len(path.path)>=minLength:
 				#		print("found new!")
-						inProgressPath = path.newPathPlusMove(curr[0], curr[1])
+						path = path.newPathPlusMove(curr[0], curr[1])
+						inProgressPath = path.deepCopy()
+						if curr == self.endPoint :
+							completePaths.append(inProgressPath.deepCopy()) 
+							print("found complete: "+ str(inProgressPath.path))
+
 						
-				print("new path: " + str(inProgressPath.path))
+				print("switched to path: " + str(inProgressPath.path))
 											
 			if(curr == self.endPoint):
-				print("found complete: "+ str(inProgressPath.path))
+				#print("found complete: "+ str(inProgressPath.path))
 				prev = (-2, -2) #set to outside board mdistance of 1
-				completePaths.append(inProgressPath)
+				#completePaths.append(inProgressPath.deepCopy())
 				if(len(incompletePaths) > 0):
 					inProgressPath = incompletePaths[-1]
 				continue

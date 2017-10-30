@@ -97,7 +97,7 @@ g.printBoard()
 
 #print(g.anySourceBlocked())
 #print('R' + " " + str(g.generateAllPaths_oneColor('R')))
-testColor = ['G']
+testColor = ['R']
 for c in testColor:
 	paths = g.generateAllPaths_oneColor(c)
 	for path in paths:
