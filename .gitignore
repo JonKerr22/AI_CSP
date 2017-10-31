@@ -12,3 +12,6 @@ breakthrough/startBoard.txt
 #test files
 free_flow/test.py
 breakthrough/test.py
+
+#the jupyter checkpoints
+.ipynb_checkpoints
