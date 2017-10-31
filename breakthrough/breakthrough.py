@@ -1,6 +1,7 @@
 import board
 import minimax
 import alphabeta
+import alphabeta2
 import time
 
 # different pieces/players
@@ -39,16 +40,18 @@ def game_play():
         # call heuristic functions
 
         if turn == WHITE:
-            score, piece_to_move, piece_x, piece_y, nodes_expanded = minimax.minimax(game_board, turn, False, 3, True, 0, 0)
-        else:
             score, piece_to_move, piece_x, piece_y, nodes_expanded, alpha, beta = alphabeta.alphabeta(game_board, turn, False, 4, True, 0, 0, -1000, 1000)
+        else:
+            score, piece_to_move, piece_x, piece_y, nodes_expanded, alpha, beta = alphabeta2.alphabeta(game_board, turn, False, 4, True, 0, 0, -1000, 1000)
 
         if piece_to_move is None:   # edge case where all pieces of certain color are killed
             if turn == WHITE:
                 player = "black"
             else:
                 player = "white"
+            game_board.print_board()
             print("Winner is: " + player)
+            print("Total moves: " + str(num_moves))
             print("Average time per move: " + str(sum(time_per_move)/len(time_per_move)))
             print("Average nodes per move: " + str(sum(nodes_per_move)/len(nodes_per_move)))
             print("Nodes expanded by white: " + str(white_nodes_expanded))
@@ -67,10 +70,10 @@ def game_play():
         time_per_move.append(end_time-start_time)
         num_moves += 1
 
-        game_board.print_board()
+        '''game_board.print_board()
         print("\n")
         print('----------------------------')
-        print("\n")
+        print("\n")'''
 
         # breaks from loop when game is over
         if game_over(piece_to_move):
@@ -78,7 +81,9 @@ def game_play():
                 player = "white"
             else:
                 player = "black"
+            game_board.print_board()
             print("Winner is: " + player)
+            print("Total moves: " + str(num_moves))
             print("Average time per move: " + str(sum(time_per_move) / len(time_per_move)))
             print("Average nodes per move: " + str(sum(nodes_per_move) / len(nodes_per_move)))
             print("Nodes expanded by white: " + str(white_nodes_expanded))
