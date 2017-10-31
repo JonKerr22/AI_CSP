@@ -1,5 +1,6 @@
 import board
 import minimax
+import alphabeta
 import time
 
 # different pieces/players
@@ -36,7 +37,10 @@ def game_play():
     while 1:  # game loop
         start_time = time.time()
         # call heuristic functions
-        score, piece_to_move, piece_x, piece_y, nodes_expanded = minimax.minimax(game_board, turn, False, 3, True, 0, 0)
+        if turn == WHITE:
+            score, piece_to_move, piece_x, piece_y, nodes_expanded = minimax.minimax(game_board, turn, False, 3, True, 0, 0)
+        else:
+            score, piece_to_move, piece_x, piece_y, nodes_expanded, alpha, beta = alphabeta.alphabeta(game_board, turn, False, 4, True, 0, 0, -1000, 1000)
 
         if piece_to_move is None:   # edge case where all pieces of certain color are killed
             if turn == WHITE:
