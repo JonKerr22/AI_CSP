@@ -46,9 +46,9 @@ def game_play():
 
 if __name__ == '__main__':
     game_play()
-    """game_board = board.Board()
+    '''game_board = board.Board()
     game_board.set_board()
     turn = WHITE
     game_board.board[1][0].move(2, 0, game_board.board, game_board.alive_pieces, WHITE)
     game_board.print_board()
-    print(game_board.board[2][0].y)"""
+    print(game_board.board[2][0].y)'''

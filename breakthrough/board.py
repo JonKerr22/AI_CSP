@@ -17,15 +17,15 @@ class Board:
                 if i == 0 or i == 1:
                     new_piece = gamePiece.Piece()
                     new_piece.color = WHITE
-                    new_piece.x = j
-                    new_piece.y = i
+                    new_piece.x = i
+                    new_piece.y = j
                     board_cols.append(new_piece)
                     self.alive_pieces.append(new_piece)
                 elif i == 6 or i == 7:
                     new_piece = gamePiece.Piece()
                     new_piece.color = BLACK
-                    new_piece.x = j
-                    new_piece.y = i
+                    new_piece.x = i
+                    new_piece.y = j
                     board_cols.append(new_piece)
                     self.alive_pieces.append(new_piece)
                 else:

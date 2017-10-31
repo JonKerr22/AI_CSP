@@ -24,7 +24,7 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
 
     if max_player:
         # initialize values
-        best_val = -100
+        best_val = -1000
         best_piece = None
         best_x_move = None
         best_y_move = None
@@ -36,56 +36,8 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
 
             # goes through all possible 6 moves for each piece
             new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y-1, piece.x-1, new_board.board, new_board.alive_pieces, turn)
-            if successful_move:
-                move_score = heuristics.offensive1(turn, new_board)
-                val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
-                best_val = max(best_val, val)
-                if best_val == val:
-                    best_piece = piece
-                    best_x_move = new_piece.x
-                    best_y_move = new_piece.y
-
-            new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y-1, piece.x, new_board.board, new_board.alive_pieces, turn)
-            if successful_move:
-                move_score = heuristics.offensive1(turn, new_board)
-                val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
-                best_val = max(best_val, val)
-                if best_val == val:
-                    best_piece = piece
-                    best_x_move = new_piece.x
-                    best_y_move = new_piece.y
-
-            new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y-1, piece.x+1, new_board.board, new_board.alive_pieces, turn)
-            if successful_move:
-                move_score = heuristics.offensive1(turn, new_board)
-                val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
-                best_val = max(best_val, val)
-                if best_val == val:
-                    best_piece = piece
-                    best_x_move = new_piece.x
-                    best_y_move = new_piece.y
-
-            new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y+1, piece.x-1, new_board.board, new_board.alive_pieces, turn)
-            if successful_move:
-                move_score = heuristics.offensive1(turn, new_board)
-                val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
-                best_val = max(best_val, val)
-                if best_val == val:
-                    best_piece = piece
-                    best_x_move = new_piece.x
-                    best_y_move = new_piece.y
-
-            new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y+1, piece.x, new_board.board, new_board.alive_pieces, turn)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x-1, piece.y-1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
@@ -97,14 +49,55 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
 
             new_board = curr_board.copy_board(new_board)
             new_piece = new_board.board[piece.x][piece.y]
-            print("before move")
-            new_board.print_board()
-            print(piece.x)
-            print(piece.y)
-            print(turn)
+            successful_move = new_piece.move(piece.x-1, piece.y, new_board.board, new_board.alive_pieces, turn)
+            if successful_move:
+                move_score = heuristics.offensive1(turn, new_board)
+                val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
+                best_val = max(best_val, val)
+                if best_val == val:
+                    best_piece = piece
+                    best_x_move = new_piece.x
+                    best_y_move = new_piece.y
+
+            new_board = curr_board.copy_board(new_board)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x-1, piece.y+1, new_board.board, new_board.alive_pieces, turn)
+            if successful_move:
+                move_score = heuristics.offensive1(turn, new_board)
+                val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
+                best_val = max(best_val, val)
+                if best_val == val:
+                    best_piece = piece
+                    best_x_move = new_piece.x
+                    best_y_move = new_piece.y
+
+            new_board = curr_board.copy_board(new_board)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x+1, piece.y-1, new_board.board, new_board.alive_pieces, turn)
+            if successful_move:
+                move_score = heuristics.offensive1(turn, new_board)
+                val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
+                best_val = max(best_val, val)
+                if best_val == val:
+                    best_piece = piece
+                    best_x_move = new_piece.x
+                    best_y_move = new_piece.y
+
+            new_board = curr_board.copy_board(new_board)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x+1, piece.y, new_board.board, new_board.alive_pieces, turn)
+            if successful_move:
+                move_score = heuristics.offensive1(turn, new_board)
+                val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
+                best_val = max(best_val, val)
+                if best_val == val:
+                    best_piece = piece
+                    best_x_move = new_piece.x
+                    best_y_move = new_piece.y
+
+            new_board = curr_board.copy_board(new_board)
+            new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x+1, piece.y+1, new_board.board, new_board.alive_pieces, turn)
-            print("after move")
-            new_board.print_board()
             if successful_move:
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score)
@@ -130,8 +123,8 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
 
             # goes through all possible 6 moves for each piece
             new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y-1, piece.x-1, new_board.board, new_board.alive_pieces, turn)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x-1, piece.y-1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score)
@@ -142,8 +135,8 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
                     best_y_move = new_piece.y
 
             new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y-1, piece.x, new_board.board, new_board.alive_pieces, turn)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x-1, piece.y, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score)
@@ -154,8 +147,8 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
                     best_y_move = new_piece.y
 
             new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y-1, piece.x+1, new_board.board, new_board.alive_pieces, turn)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x-1, piece.y+1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score)
@@ -166,8 +159,8 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
                     best_y_move = new_piece.y
 
             new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y+1, piece.x-1, new_board.board, new_board.alive_pieces, turn)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x+1, piece.y-1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score)
@@ -178,8 +171,8 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
                     best_y_move = new_piece.y
 
             new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y+1, piece.x, new_board.board, new_board.alive_pieces, turn)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x+1, piece.y, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score)
@@ -190,8 +183,8 @@ def minimax(curr_board, turn, end_game, depth, max_player, score):
                     best_y_move = new_piece.y
 
             new_board = curr_board.copy_board(new_board)
-            new_piece = new_board.board[piece.y][piece.x]
-            successful_move = new_piece.move(piece.y+1, piece.x+1, new_board.board, new_board.alive_pieces, turn)
+            new_piece = new_board.board[piece.x][piece.y]
+            successful_move = new_piece.move(piece.x+1, piece.y+1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move = minimax(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score)
