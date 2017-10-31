@@ -15,10 +15,10 @@ def game_over(piece_moved):
     Checks to see if the last piece moved was moved to end row.
     """
     if piece_moved.color == WHITE:
-        if piece_moved.y == 7:
+        if piece_moved.x == 7:
             return True
     elif piece_moved.color == BLACK:
-        if piece_moved.y == 0:
+        if piece_moved.x == 0:
             return True
     return False
 
@@ -31,11 +31,21 @@ def game_play():
     while 1:  # game loop
         # call heuristic functions
         score, piece_to_move, piece_x, piece_y = minimax.minimax(game_board, turn, False, 3, True, 0)
-        piece_to_move.move(piece_to_move, piece_y, piece_x, game_board.board, game_board.alive_pieces, turn)
+        if piece_to_move is None:   # edge case where all pieces of certain color are killed
+            continue
+        piece_to_move.move(piece_x, piece_y, game_board.board, game_board.alive_pieces, turn)
         game_board.print_board()
+        print("\n")
+        print('----------------------------')
+        print("\n")
 
         # breaks from loop when game is over
         if game_over(piece_to_move):
+            if turn == WHITE:
+                player = "white"
+            else:
+                player = "black"
+            print("Winner is: " + player)
             break
 
         # switches players turn

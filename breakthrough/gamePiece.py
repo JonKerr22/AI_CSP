@@ -59,35 +59,35 @@ class Piece:
                 self.y = new_y
                 return True
 
-   	def is_attackable(self, board):
-    	if self.color == WHITE:
-    		for piece in board.alive_pieces:
-    			if piece.color == BLACK and ((piece.x == self.x-1 or piece.x == self.x+1) and piece.y == self.y+1):
-    				return True
-    	else:
-    		for piece in board.alive_pieces:
-    			if piece.color == WHITE and ((piece.x == self.x-1 or piece.x == self.x+1) and piece.y == self.y-1):
-    				return True
-    	return False
+    def is_attackable(self, board):
+        if self.color == WHITE:
+            for piece in board.alive_pieces:
+                if piece.color == BLACK and ((piece.x == self.x-1 or piece.x == self.x+1) and piece.y == self.y+1):
+                    return True
+        else:
+            for piece in board.alive_pieces:
+                if piece.color == WHITE and ((piece.x == self.x-1 or piece.x == self.x+1) and piece.y == self.y-1):
+                    return True
+        return False
 
     def unable_to_attack(self, board):
-    	if self.color == WHITE:
-    		#on left wall
-    		if self.x == 0 and (board[self.x+1][self.y+1] is None or board[self.x+1][self.y+1].color == WHITE):
-    			return False
-    		#on right wall
-    		elif self.x == 7 and (board[self.x-1][self.y+1] is None or board[self.x-1][self.y+1].color == WHITE):
-    			return False
-    		elif (board[self.x-1][self.y+1] is None or board[self.x-1][self.y+1].color == WHITE) and (board[self.x+1][self.y+1] is None or board[self.x+1][self.y+1].color == WHITE):
-    			return False
-    	else:
-    		#on left wall
-    		if self.x == 0 and (board[self.x+1][self.y-1] is None or board[self.x+1][self.y-1].color == BLACK):
-    			return False
-    		#on right wall
-    		elif self.x == 7 and (board[self.x-1][self.y-1] is None or board[self.x-1][self.y-1].color == BLACK):
-    			return False
-    		elif (board[self.x-1][self.y-1] is None or board[self.x-1][self.y-1].color == BLACK) and (board[self.x+1][self.y-1] is None or board[self.x+1][self.y-1].color == BLACK):
-    			return False
+        if self.color == WHITE:
+            #on left wall
+            if self.x == 0 and (board[self.x+1][self.y+1] is None or board[self.x+1][self.y+1].color == WHITE):
+                return False
+            #on right wall
+            elif self.x == 7 and (board[self.x-1][self.y+1] is None or board[self.x-1][self.y+1].color == WHITE):
+                return False
+            elif (board[self.x-1][self.y+1] is None or board[self.x-1][self.y+1].color == WHITE) and (board[self.x+1][self.y+1] is None or board[self.x+1][self.y+1].color == WHITE):
+                return False
+        else:
+            #on left wall
+            if self.x == 0 and (board[self.x+1][self.y-1] is None or board[self.x+1][self.y-1].color == BLACK):
+                return False
+            #on right wall
+            elif self.x == 7 and (board[self.x-1][self.y-1] is None or board[self.x-1][self.y-1].color == BLACK):
+                return False
+            elif (board[self.x-1][self.y-1] is None or board[self.x-1][self.y-1].color == BLACK) and (board[self.x+1][self.y-1] is None or board[self.x+1][self.y-1].color == BLACK):
+                return False
 
-    	return True
+        return True

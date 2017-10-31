@@ -34,14 +34,15 @@ class Board:
 
     def copy_board(self, new_board):
         """copies current state of the board to a new board"""
+        new_board = Board()
         for i in range(0, 8):
             board_cols = []
             for j in range(0, 8):
                 if self.board[i][j] is not None:
                     new_piece = gamePiece.Piece()
                     new_piece.color = self.board[i][j].color
-                    new_piece.x = self.board[i][j].x
-                    new_piece.y = self.board[i][j].y
+                    new_piece.x = i
+                    new_piece.y = j
                     board_cols.append(new_piece)
                     new_board.alive_pieces.append(new_piece)
                 else:
@@ -66,9 +67,9 @@ class Board:
             curr_line = "|"
 
     def pieces_left(self, color):
-    	left = 0
-    	for i in range(0, 8):
+        left = 0
+        for i in range(0, 8):
             for j in range(0, 8):
-            	if self.board[i][j] == color:
-            		left +=1
+                if self.board[i][j] == color:
+                    left +=1
         return left
