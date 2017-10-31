@@ -44,7 +44,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x-1, piece.y-1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score, nodes_expanded+1, alpha, beta)
                 best_val = max(best_val, val)
                 if best_val == val:
@@ -60,7 +60,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x-1, piece.y, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score, nodes_expanded+1, alpha, beta)
                 best_val = max(best_val, val)
                 if best_val == val:
@@ -75,7 +75,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x-1, piece.y+1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score, nodes_expanded+1, alpha, beta)
                 best_val = max(best_val, val)
                 if best_val == val:
@@ -90,7 +90,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x+1, piece.y-1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score, nodes_expanded+1, alpha, beta)
                 best_val = max(best_val, val)
                 if best_val == val:
@@ -105,7 +105,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x+1, piece.y, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score, nodes_expanded+1, alpha, beta)
                 best_val = max(best_val, val)
                 if best_val == val:
@@ -120,7 +120,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x+1, piece.y+1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth-1, False, move_score, nodes_expanded+1, alpha, beta)
                 best_val = max(best_val, val)
                 if best_val == val:
@@ -150,7 +150,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x-1, piece.y-1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score, nodes_expanded+1, alpha, beta)
                 best_val = min(best_val, val)
                 if best_val == val:
@@ -165,7 +165,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x-1, piece.y, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score, nodes_expanded+1, alpha, beta)
                 best_val = min(best_val, val)
                 if best_val == val:
@@ -180,7 +180,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x-1, piece.y+1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score, nodes_expanded+1, alpha, beta)
                 best_val = min(best_val, val)
                 best_val = min(best_val, val, alpha, beta)
@@ -196,7 +196,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x+1, piece.y-1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score, nodes_expanded+1, alpha, beta)
                 best_val = min(best_val, val)
                 if best_val == val:
@@ -211,7 +211,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x+1, piece.y, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score, nodes_expanded+1, alpha, beta)
                 best_val = min(best_val, val)
                 if best_val == val:
@@ -226,7 +226,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
             new_piece = new_board.board[piece.x][piece.y]
             successful_move = new_piece.move(piece.x+1, piece.y+1, new_board.board, new_board.alive_pieces, turn)
             if successful_move:
-                move_score = heuristics.defensive1(turn, new_board)
+                move_score = heuristics.defensive2(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score, nodes_expanded+1, alpha, beta)
                 best_val = min(best_val, val)
                 if best_val == val:

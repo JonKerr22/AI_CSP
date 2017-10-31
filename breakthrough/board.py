@@ -65,11 +65,3 @@ class Board:
                     curr_line += ' '
             print(curr_line)
             curr_line = "|"
-
-    def pieces_left(self, color):
-        left = 0
-        for i in range(0, 8):
-            for j in range(0, 8):
-                if self.board[i][j] == color:
-                    left +=1
-        return left

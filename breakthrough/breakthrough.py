@@ -69,12 +69,12 @@ def game_play():
         end_time = time.time()
         time_per_move.append(end_time-start_time)
         num_moves += 1
-
-        '''game_board.print_board()
+        '''
+        game_board.print_board()
         print("\n")
         print('----------------------------')
-        print("\n")'''
-
+        print("\n")
+        '''
         # breaks from loop when game is over
         if game_over(piece_to_move):
             if turn == WHITE:

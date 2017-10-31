@@ -61,7 +61,8 @@ def offensive2(player, board):
 	for piece in board.alive_pieces:
 		if piece.color != player and piece.is_attackable(board):
 			peices_to_attack +=1
-	return peices_to_attack
+	#print peices_to_attack
+	return peices_to_attack + random()
 	
 def defensive2(player, board):
 	"""
@@ -76,13 +77,14 @@ def defensive2(player, board):
 	The more peices your opponent has that cannot attack, the higher this score will be
 	"""
 	#if opponent has lost players, then they obviously can't attack
-	immoveable_opponents = 0 
+	immoveable_opponents = 16 
 	if player == WHITE:
-		immoveable_opponents += (16 - board.pieces_left(BLACK))
+		immoveable_opponents -= number_of_pieces(BLACK, board.alive_pieces)
 	else:
-		immoveable_opponents += (16 - board.pieces_left(WHITE))
-
+		immoveable_opponents -= number_of_pieces(WHITE, board.alive_pieces)
+	
 	for piece in board.alive_pieces:
 		if piece.color != player and piece.unable_to_attack(board):
 			immoveable_opponents +=1
-	return immoveable_opponents
+	#print immoveable_opponents
+	return immoveable_opponents + random()
