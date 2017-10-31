@@ -37,6 +37,7 @@ def game_play():
     while 1:  # game loop
         start_time = time.time()
         # call heuristic functions
+
         if turn == WHITE:
             score, piece_to_move, piece_x, piece_y, nodes_expanded = minimax.minimax(game_board, turn, False, 3, True, 0, 0)
         else:

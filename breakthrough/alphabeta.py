@@ -2,7 +2,12 @@ import board
 import breakthrough
 import heuristics
 
+# different pieces/players
+WHITE = 0
+BLACK = 1
+
 def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expanded, alpha, beta):
+
     """
     :param curr_board: current state of the board
     :param turn: which player's turn it is
@@ -17,10 +22,10 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
 
     # switches turn for recursive call
     new_turn = turn
-    if new_turn == 0:
-        new_turn = 1
+    if new_turn == WHITE:
+        new_turn = BLACK
     else:
-        new_turn = 0
+        new_turn = WHITE
 
     if max_player:
         # initialize values
@@ -49,6 +54,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
                 alpha = max(alpha, best_val)
                 if beta <= alpha:
                     break
+
 
             new_board = curr_board.copy_board(new_board)
             new_piece = new_board.board[piece.x][piece.y]
@@ -177,6 +183,7 @@ def alphabeta(curr_board, turn, end_game, depth, max_player, score, nodes_expand
                 move_score = heuristics.offensive1(turn, new_board)
                 val, curr_best_piece, curr_best_x_move, curr_best_y_move, nodes_expanded, alpha, beta = alphabeta(new_board, new_turn, breakthrough.game_over(piece), depth - 1, True, move_score, nodes_expanded+1, alpha, beta)
                 best_val = min(best_val, val)
+                best_val = min(best_val, val, alpha, beta)
                 if best_val == val:
                     best_piece = piece
                     best_x_move = new_piece.x
