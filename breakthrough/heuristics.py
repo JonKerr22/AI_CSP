@@ -53,7 +53,15 @@ def offensive2(player, board):
 	the number of it's own peices. So to beat that, goal
 	is to maximize number of peices you can attack, since defensive 
 	one doesn't avoid moving into attack, just avoids losing
+
+	The fewer attackable peices your opponent has, the lower your score will be
 	"""
+	peices_to_attack = 0
+	
+	for piece in board.alive_pieces:
+		if piece.color != player and piece.is_attackable(board):
+			peices_to_attack +=1
+	return peices_to_attack
 	
 def defensive2(player, board):
 	"""
@@ -61,6 +69,20 @@ def defensive2(player, board):
 	the total number of peices your opponenet has. To
 	beat that try and minimize the number of peices that
 	other player can attack with, basically avoid being diagonal 
-	from an opponent peice, but try and get your pieces directly 
-	in front of opponent
+	from an opponent peice
+	if this not good enough to win, try and get your pieces directly 
+	in front of opponent as well to stop movement
+
+	The more peices your opponent has that cannot attack, the higher this score will be
 	"""
+	#if opponent has lost players, then they obviously can't attack
+	immoveable_opponents = 0 
+	if player == WHITE:
+		immoveable_opponents += (16 - board.pieces_left(BLACK))
+	else:
+		immoveable_opponents += (16 - board.pieces_left(WHITE))
+
+	for piece in board.alive_pieces:
+		if piece.color != player and piece.unable_to_attack(board):
+			immoveable_opponents +=1
+	return immoveable_opponents
