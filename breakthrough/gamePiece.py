@@ -71,23 +71,33 @@ class Piece:
         return False
 
     def unable_to_attack(self, board):
+        
         if self.color == WHITE:
+            if self.y ==7:
+                return True
+
             #on left wall
-            if self.x == 0 and (board[self.x+1][self.y+1] is None or board[self.x+1][self.y+1].color == WHITE):
-                return False
+            elif self.x == 0:
+                if (board.board[self.x+1][self.y+1] is None or board.board[self.x+1][self.y+1].color == WHITE):
+                    return False
             #on right wall
-            elif self.x == 7 and (board[self.x-1][self.y+1] is None or board[self.x-1][self.y+1].color == WHITE):
-                return False
-            elif (board[self.x-1][self.y+1] is None or board[self.x-1][self.y+1].color == WHITE) and (board[self.x+1][self.y+1] is None or board[self.x+1][self.y+1].color == WHITE):
+            elif self.x == 7: 
+                if (board.board[self.x-1][self.y+1] is None or board.board[self.x-1][self.y+1].color == WHITE):
+                    return False
+            elif (board.board[self.x-1][self.y+1] is None or board.board[self.x-1][self.y+1].color == WHITE) and (board.board[self.x+1][self.y+1] is None or board.board[self.x+1][self.y+1].color == WHITE):
                 return False
         else:
+            if self.y ==0:
+                return 0
             #on left wall
-            if self.x == 0 and (board[self.x+1][self.y-1] is None or board[self.x+1][self.y-1].color == BLACK):
-                return False
+            elif self.x == 0:
+                if (board.board[self.x+1][self.y-1] is None or board.board[self.x+1][self.y-1].color == BLACK):
+                    return False
             #on right wall
-            elif self.x == 7 and (board[self.x-1][self.y-1] is None or board[self.x-1][self.y-1].color == BLACK):
+            elif self.x == 7: 
+                if (board.board[self.x-1][self.y-1] is None or board.board[self.x-1][self.y-1].color == BLACK):
+                    return False
+            elif (board.board[self.x-1][self.y-1] is None or board.board[self.x-1][self.y-1].color == BLACK) and (board.board[self.x+1][self.y-1] is None or board.board[self.x+1][self.y-1].color == BLACK):
                 return False
-            elif (board[self.x-1][self.y-1] is None or board[self.x-1][self.y-1].color == BLACK) and (board[self.x+1][self.y-1] is None or board[self.x+1][self.y-1].color == BLACK):
-                return False
-
+        
         return True
